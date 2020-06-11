@@ -5,85 +5,85 @@
 
 @section styles
 {
-   
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
 
-        <style>
-            .jsgrid {
-                font-size: 0.8em;
-            }
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
 
-            .table td, .table th {
-                padding: .2rem;
-            }
+    <style>
+        .jsgrid {
+            font-size: 0.8em;
+        }
 
-            .jsgrid input, .jsgrid select, .jsgrid textarea {
-                font-size: 0.8em;
-            }
+        .table td, .table th {
+            padding: .2rem;
+        }
+
+        .jsgrid input, .jsgrid select, .jsgrid textarea {
+            font-size: 0.8em;
+        }
 
 
-            /*Bootstrap Pagination css */
-            .jsgrid-pager {
-                padding-left: 0;
-                display: flex;
-                list-style: none;
-                border-radius: .25rem;
-            }
+        /*Bootstrap Pagination css */
+        .jsgrid-pager {
+            padding-left: 0;
+            display: flex;
+            list-style: none;
+            border-radius: .25rem;
+        }
 
-            .jsgrid-pager-page, .jsgrid-pager-nav-button {
-                position: relative;
-                display: block;
-                padding: .5rem .75rem !important;
-                margin-left: -1px;
-                line-height: 1.25;
-                color: #007bff;
-                background-color: #fff;
-                border: 1px solid #dee2e6;
-            }
+        .jsgrid-pager-page, .jsgrid-pager-nav-button {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem !important;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #007bff;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+        }
 
-            .jsgrid-pager span:first-child {
-                margin-left: 0 !important;
-                border-top-left-radius: .25rem !important;
-                border-bottom-left-radius: .25rem !important;
-            }
+        .jsgrid-pager span:first-child {
+            margin-left: 0 !important;
+            border-top-left-radius: .25rem !important;
+            border-bottom-left-radius: .25rem !important;
+        }
 
-            .jsgrid-pager span:last-child {
-                border-top-right-radius: .25rem;
-                border-bottom-right-radius: .25rem;
-            }
+        .jsgrid-pager span:last-child {
+            border-top-right-radius: .25rem;
+            border-bottom-right-radius: .25rem;
+        }
 
-            .jsgrid-pager-nav-inactive-button {
-                display: block !important;
-                pointer-events: auto !important;
-            }
+        .jsgrid-pager-nav-inactive-button {
+            display: block !important;
+            pointer-events: auto !important;
+        }
 
             .jsgrid-pager-nav-inactive-button a {
                 color: #007bff !important;
             }
 
-            .jsgrid-pager-page:hover, .jsgrid-pager-nav-button:hover {
-                z-index: 2;
-                color: #0056b3;
-                text-decoration: none;
-                background-color: #e9ecef;
-                border-color: #dee2e6
-            }
+        .jsgrid-pager-page:hover, .jsgrid-pager-nav-button:hover {
+            z-index: 2;
+            color: #0056b3;
+            text-decoration: none;
+            background-color: #e9ecef;
+            border-color: #dee2e6
+        }
 
-            .jsgrid-pager-page:focus, .jsgrid-pager-nav-button:focus {
-                z-index: 2;
-                outline: 0;
-                box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
-            }
+        .jsgrid-pager-page:focus, .jsgrid-pager-nav-button:focus {
+            z-index: 2;
+            outline: 0;
+            box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25)
+        }
 
-            .jsgrid-pager-current-page {
-                font-weight: 400 !important;
-                cursor: pointer !important;
-                z-index: 1;
-                color: #fff;
-                background-color: #007bff;
-                border-color: #007bff;
-            }
+        .jsgrid-pager-current-page {
+            font-weight: 400 !important;
+            cursor: pointer !important;
+            z-index: 1;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
 
             .jsgrid-pager-current-page:hover {
                 color: #fff;
@@ -91,17 +91,16 @@
                 border-color: #007bff;
             }
 
-            .jsgrid-grid-header,
-            .jsgrid-grid-body {
-                overflow: auto; 
-            }
-
-        </style>
+        .jsgrid-grid-header,
+        .jsgrid-grid-body {
+            overflow: auto;
+        }
+    </style>
 
 }
 
 @*<table class="table table-bordered" id="jsGrid" width="100%" cellspacing="0">
-</table>*@
+    </table>*@
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -153,84 +152,108 @@
 
 </div>
 
-    @section Scripts
-    {
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
-        <script>
-            $(function() {
+@section Scripts
+{
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+    <script>
+        $(function () {
 
-                var size = $("#pageSize")[0].value;
-                //$("#jsGrid").jsGrid("option", "pageSize", this.value);
+            var size = $("#pageSize")[0].value;
+            //$("#jsGrid").jsGrid("option", "pageSize", this.value);
 
-                $("#pageSize").on('change',
-                    function(event) {
-                        $("#jsGrid").jsGrid("option", "pageSize", this.value);
-                        $(".jsgrid-pager").prepend("<span class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Pages : </a></span>");
-                    });
-
-
-                $("#jsGrid").jsGrid({
-                    height: "500px",
-                    width: "100%",
-                    heading: true,
-                    filtering: true,
-                    inserting: false,
-                    editing: false,
-                    selecting: true,
-                    sorting: true,
-                    paging: true,
-                    pageLoading: true,
-                    autoload: true,
-                    pagerContainer: null,
-                    pageIndex: 1,
-                    pageSize: $("#pageSize")[0].value,
-                    pageButtonCount: 5,
-                    updateOnResize: true,
-                    updateOnRowChange: true,
-                    pagerFormat: " {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount} {itemCount}",
-                    pagePrevText: "Prev",
-                    pageNextText: "Next",
-                    pageFirstText: "First",
-                    pageLastText: "Last",
-                    pageNavigatorNextText: "...",
-                    pageNavigatorPrevText: "...",
-                    invalidMessage: "Please review the error",
-                    controller: {
-                        loadData: function(filter) {
-                            var d = $.Deferred();
-                            $.ajax({
-                                url: "https://localhost:44356/api/track",
-                                dataType: "json",
-                                data: filter
-                            }).done(function(response) {
-                                $("#totalRecords").text(response.totalCount);
-                                var da = { data: response.items, itemsCount: response.totalCount };
-                                d.resolve(da);
-                            });
-                            return d.promise();
-                        }
-                    },
-
-                    fields: [
-                        { type: "control", width: 50, editButton: false, deleteButton: false },
-                        { name: "id", type: "text", width: 400 },
-                        { name: "albumId", type: "text", width: 400 },
-                        { name: "trackName", type: "text", width: 500 },
-                        { name: "composer", type: "text", width: 300 },
-                        { name: "performer", type: "text", width: 500 },
-                        { name: "featuring", type: "text", width: 500 },
-                        { name: "duration", type: "text", width: 300 }
-                    ]
+            $("#pageSize").on('change',
+                function (event) {
+                    $("#jsGrid").jsGrid("option", "pageSize", this.value);
+                    $(".jsgrid-pager").prepend("<span class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Pages : </a></span>");
                 });
 
+
+            var Albums = [
+                { Name: "", Id: "0" },
+                { Name: "We Found Heaven Right Here on Earth at '4033'", Id: "705f0fff-7d90-4367-9d47-46706965d932" },
+                { Name: "The Christmas Spirit", Id: "7b6e2154-1a08-47fc-8fe8-0039dd038b3f" },
+                { Name: "Girl Happy", Id: "7da19f14-6236-46a8-9958-440f81bb856c" },
+                { Name: "Smokey Robinson & the Miracles", Id: "f487ad59-58fe-4018-89d9-7df5656d67b3" }
+            ];
+
+
+            $("#jsGrid").jsGrid({
+                height: "500px",
+                width: "100%",
+                heading: true,
+                filtering: true,
+                inserting: false,
+                editing: false,
+                selecting: true,
+                sorting: true,
+                paging: true,
+                pageLoading: true,
+                autoload: true,
+                pagerContainer: null,
+                pageIndex: 1,
+                pageSize: $("#pageSize")[0].value,
+                pageButtonCount: 5,
+                updateOnResize: true,
+                updateOnRowChange: true,
+                pagerFormat: " {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount} {itemCount}",
+                pagePrevText: "Prev",
+                pageNextText: "Next",
+                pageFirstText: "First",
+                pageLastText: "Last",
+                pageNavigatorNextText: "...",
+                pageNavigatorPrevText: "...",
+                invalidMessage: "Please review the error",
+                controller: {
+                    loadData: function (filter) {
+                        var d = $.Deferred();
+                        $.ajax({
+                            url: "https://localhost:44356/api/track",
+                            dataType: "json",
+                            data: filter
+                        }).done(function (response) {
+                            $("#totalRecords").text(response.totalCount);
+                            var da = { data: response.items, itemsCount: response.totalCount };
+                            d.resolve(da);
+                        });
+                        return d.promise();
+                    }
+                },
+
+                fields: [
+                    { type: "control", width: 50, editButton: false, deleteButton: false },
+                    {
+                        name: "Country",
+                        type: "select",
+                        items: Albums,
+                        valueField: "Id",
+                        textField: "Name",
+                        filterTemplate: function () {
+                            var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
+                            $select.prepend($("<option>").prop("value", "0").text("(All)"));
+                            return $select;
+                        }
+                    },
+                    { name: "id", type: "text", width: 400 },
+                    //{ name: "albumId", type: "text", width: 400 },
+                    {
+                        name: "albumId", type: "select", width: 400, items: Albums, valueField: "Id", textField: "Name", filterTemplate: function () {
+                            var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
+                           // $select.prepend($("<option>").prop("value", "0").text("(All)"));
+                            return $select;
+                        }
+                    },
+                    { name: "trackName", type: "text", width: 500 },
+                    { name: "composer", type: "text", width: 300 },
+                    { name: "performer", type: "text", width: 500 },
+                    { name: "featuring", type: "text", width: 500 },
+                    { name: "duration", type: "text", width: 300 }
+                ]
             });
+        });
 
-           
 
-         
-
-        </script>
+    </script>
 
 
 
-    }
+}

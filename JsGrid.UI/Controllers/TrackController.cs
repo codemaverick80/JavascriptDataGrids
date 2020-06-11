@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace JsDataGrids.UI.Controllers
 {
@@ -19,10 +20,14 @@ namespace JsDataGrids.UI.Controllers
         public ActionResult Get()
         {
             var filters = GetFilters(HttpContext.Request.Query);
+
+           // NameValueCollection f = HttpUtility.ParseQueryString(filters);
             
             int totalRecords = 0;
             var getTracks = DataService.GetTracks(filters.PageSize, filters.CurrentPage, filters.SortColumn,
                 filters.SortOrder, filters.WhereCondititon, ref totalRecords);
+
+
 
             return Ok(new { items = getTracks, totalCount = totalRecords });
         }
@@ -53,7 +58,7 @@ namespace JsDataGrids.UI.Controllers
                             whereClause += "AND id='" + kvp.Value + "'";
                             break;
                         case "albumId":
-                            whereClause += "AND albumId='" + kvp.Value + "'";
+                            whereClause += kvp.Value=="0" ? "": "AND albumId='" + kvp.Value + "'";
                             break;
                         case "trackName":
                             whereClause += "AND trackName like'%" + kvp.Value.Replace("'","") + "%'";
