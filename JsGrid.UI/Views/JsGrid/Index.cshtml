@@ -107,6 +107,12 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
         </div>
+        
+        <div>
+            <button type="submit" id="btnDownloadExcel">Download Excel</button>
+
+        </div>
+
         <div class="card-body">
 
             <div class="row">
@@ -156,25 +162,25 @@
 {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
     <script>
-        $(function () {
+        $(function() {
 
             var size = $("#pageSize")[0].value;
             //$("#jsGrid").jsGrid("option", "pageSize", this.value);
 
             $("#pageSize").on('change',
-                function (event) {
+                function(event) {
                     $("#jsGrid").jsGrid("option", "pageSize", this.value);
                     $(".jsgrid-pager").prepend("<span class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Pages : </a></span>");
                 });
 
 
-            var Albums = [
-                { Name: "", Id: "0" },
-                { Name: "We Found Heaven Right Here on Earth at '4033'", Id: "705f0fff-7d90-4367-9d47-46706965d932" },
-                { Name: "The Christmas Spirit", Id: "7b6e2154-1a08-47fc-8fe8-0039dd038b3f" },
-                { Name: "Girl Happy", Id: "7da19f14-6236-46a8-9958-440f81bb856c" },
-                { Name: "Smokey Robinson & the Miracles", Id: "f487ad59-58fe-4018-89d9-7df5656d67b3" }
-            ];
+            //var Albums = [
+            //    { Name: "Select", Id: "0" },
+            //    { Name: "We Found Heaven Right Here on Earth at '4033'", Id: "705f0fff-7d90-4367-9d47-46706965d932" },
+            //    { Name: "The Christmas Spirit", Id: "7b6e2154-1a08-47fc-8fe8-0039dd038b3f" },
+            //    { Name: "Girl Happy", Id: "7da19f14-6236-46a8-9958-440f81bb856c" },
+            //    { Name: "Smokey Robinson & the Miracles", Id: "f487ad59-58fe-4018-89d9-7df5656d67b3" }
+            //];
 
 
             $("#jsGrid").jsGrid({
@@ -204,13 +210,13 @@
                 pageNavigatorPrevText: "...",
                 invalidMessage: "Please review the error",
                 controller: {
-                    loadData: function (filter) {
+                    loadData: function(filter) {
                         var d = $.Deferred();
                         $.ajax({
                             url: "https://localhost:44356/api/track",
                             dataType: "json",
                             data: filter
-                        }).done(function (response) {
+                        }).done(function(response) {
                             $("#totalRecords").text(response.totalCount);
                             var da = { data: response.items, itemsCount: response.totalCount };
                             d.resolve(da);
@@ -221,27 +227,27 @@
 
                 fields: [
                     { type: "control", width: 50, editButton: false, deleteButton: false },
-                    {
-                        name: "Country",
-                        type: "select",
-                        items: Albums,
-                        valueField: "Id",
-                        textField: "Name",
-                        filterTemplate: function () {
-                            var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
-                            $select.prepend($("<option>").prop("value", "0").text("(All)"));
-                            return $select;
-                        }
-                    },
+                    //{
+                    //    name: "Country",
+                    //    type: "select",
+                    //    items: Albums,
+                    //    valueField: "Id",
+                    //    textField: "Name",
+                    //    filterTemplate: function () {
+                    //        var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
+                    //        $select.prepend($("<option>").prop("value", "0").text("(All)"));
+                    //        return $select;
+                    //    }
+                    //},
                     { name: "id", type: "text", width: 400 },
-                    //{ name: "albumId", type: "text", width: 400 },
-                    {
-                        name: "albumId", type: "select", width: 400, items: Albums, valueField: "Id", textField: "Name", filterTemplate: function () {
-                            var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
-                           // $select.prepend($("<option>").prop("value", "0").text("(All)"));
-                            return $select;
-                        }
-                    },
+                    { name: "albumId", type: "text", width: 400 },
+                    //{
+                    //    name: "albumId", type: "select", width: 400, items: Albums, valueField: "Id", textField: "Name", filterTemplate: function () {
+                    //        var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
+                    //       // $select.prepend($("<option>").prop("value", "0").text("(All)"));
+                    //        return $select;
+                    //    }
+                    //},
                     { name: "trackName", type: "text", width: 500 },
                     { name: "composer", type: "text", width: 300 },
                     { name: "performer", type: "text", width: 500 },
@@ -249,6 +255,13 @@
                     { name: "duration", type: "text", width: 300 }
                 ]
             });
+        });
+
+
+        $("#btnDownloadExcel").click(function () {
+
+            window.open("../../api/track/generateExcel");
+
         });
 
 
