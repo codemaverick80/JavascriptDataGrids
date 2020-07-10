@@ -258,9 +258,13 @@
         });
 
 
-        $("#btnDownloadExcel").click(function () {
+        $("#btnDownloadExcel").click(function() {
 
-            window.open("../../api/track/generateExcel");
+            var parameters = {
+
+            };
+
+            window.open("https://localhost:44356/api/download/excel");
 
         });
 

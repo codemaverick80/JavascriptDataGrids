@@ -14,89 +14,30 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using JsDataGrids.DataAccess.Models;
 
 namespace JsDataGrids.UI.Controllers
 {
-    [Route("api/track")]
+   // [Route("api/track")]
     [ApiController]
     public class TrackController : ControllerBase
     {
 
-
+        [HttpGet]
+        [Route("api/track")]
         public ActionResult Get()
         {
             var filters = GetFilters(HttpContext.Request.Query);
-
-           // NameValueCollection f = HttpUtility.ParseQueryString(filters);
-            
+            //// NameValueCollection f = HttpUtility.ParseQueryString(filters);
             int totalRecords = 0;
             var getTracks = DataService.GetTracks(filters.PageSize, filters.CurrentPage, filters.SortColumn,
                 filters.SortOrder, filters.WhereCondititon, ref totalRecords);
 
-           // CreateExcelFile(getTracks, "c:\\Users\\Banku\\Desktop");
-
-            
             return Ok(new { items = getTracks, totalCount = totalRecords });
         }
-
-
-        [HttpGet]
-        [Route("generate")]
-        public HttpResponseMessage Genreate()
-        {
-
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            return result;
-        }
-
-
-        [HttpGet]
-        [Route("generateExcel")]
-        public  HttpResponseMessage DownloadExcel()
-        {
-           
-            MemoryStream ms = new MemoryStream();
-            SpreadsheetDocument document = SpreadsheetDocument.Create(ms, SpreadsheetDocumentType.Workbook);
-
-            //add a WorkbookPart to the document
-            WorkbookPart workbookPart = document.AddWorkbookPart();
-            workbookPart.Workbook = new Workbook();
-
-            //add a WortsheetPart to the WorkbookPart
-            WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-            Sheets sheets = document.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
-
-            Sheet sheet = new Sheet()
-            {
-                Id = document.WorkbookPart.GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = "FirstSheet"
-            };
-
-            sheets.Append(sheet);
-            workbookPart.Workbook.Save();
-            document.Close();
-            string filename = "testexcel.xlsx";
-
-            
-
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            
-            ms.Seek(0, SeekOrigin.Begin);
-            result.Content=new StreamContent(ms);//application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-            result.Content.Headers.ContentType=new MediaTypeHeaderValue("application/octet-stream");
-            result.Content.Headers.ContentDisposition=new ContentDispositionHeaderValue("attachment") {FileName = filename};
-            ms.Flush();
-            return result;
-
-        }
-
-
 
         private GridFilters GetFilters(IQueryCollection filters)
         {
@@ -168,44 +109,17 @@ namespace JsDataGrids.UI.Controllers
 
 
 
-        private void InMemoryExcelFileGeneration()
-        {
-
-            MemoryStream ms=new MemoryStream();
-            SpreadsheetDocument document=SpreadsheetDocument.Create(ms,SpreadsheetDocumentType.Workbook);
-
-            //add a WorkbookPart to the document
-            WorkbookPart workbookPart = document.AddWorkbookPart();
-            workbookPart.Workbook=new Workbook();
-
-            //add a WortsheetPart to the WorkbookPart
-            WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet=new Worksheet(new SheetData());
-
-            Sheets sheets = document.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
-
-            Sheet sheet = new Sheet()
-            {
-                Id = document.WorkbookPart.GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = "FirstSheet"
-            };
-
-            sheets.Append(sheet);
-            workbookPart.Workbook.Save();
-            document.Clone();
-            string filename = "testexcel.xlsx";
-            
-            //Response.Clear();
-            //byte[] dataBytes = ms.ToArray();
-            //Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            //Response.AddHeader("Content-Disposition", string.Format("attachment; filename={0}", filename));
-            //Response.BinaryWrite(dataBytes);
-            //Response.End();
 
 
-        }
 
+
+
+
+
+
+
+
+        
         private void CreateExcelFile(List<Track> data, string OutPutFileDirectory)
         {
             var datetime = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_");

@@ -21,5 +21,10 @@ namespace JsDataGrids.DataAccess
         {
             return DataController.GetArtists();
         }
+
+        public static bool BulkCopyToSQLServer(List<Employee> employees)
+        {
+            return DataController.BulkCopyToSQLServer(employees);
+        }
     }
 }

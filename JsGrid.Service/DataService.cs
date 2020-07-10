@@ -21,5 +21,11 @@ namespace JsDataGrids.Service
         {
             return DataProvider.GetArtists();
         }
+
+        public static bool BulkCopyToSQLServer(List<Employee> employees)
+        {
+            return DataProvider.BulkCopyToSQLServer(employees);
+        }
+
     }
 }

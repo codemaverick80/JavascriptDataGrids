@@ -1,8 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Text.Json;
+using Bogus;
+using Bogus.Extensions.UnitedStates;
 using JsDataGrids.Service;
 using JsDataGrids.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using Bogus.Extensions;
+using JsDataGrids.DataAccess.Models;
+using JsDataGrids.UI.Extensions;
+using JsDataGrids.UI.Faker;
 
 namespace JsDataGrids.UI.Controllers
 {
@@ -18,11 +27,20 @@ namespace JsDataGrids.UI.Controllers
         public IActionResult Index()
         {
 
-            //var artist = DataService.GetTracksUsingRawSQL();
-
-
             return View();
         }
+
+
+        private void GenerateFakeDataAndSaveInSQLServer()
+        {
+            var data= GenerateFakeData.GenerateEmployeeData();
+            var distinctStates = data.DistinctByColumn(x => x.State).ToList();
+            // var json = JsonSerializer.Serialize(employees);
+             var result=DataService.BulkCopyToSQLServer(data);
+        }
+
+
+
 
         public IActionResult Privacy()
         {
@@ -34,5 +52,6 @@ namespace JsDataGrids.UI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
