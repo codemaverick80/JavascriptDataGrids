@@ -111,7 +111,7 @@ Employee.prototype.populateGrid = function (param,filterCollection) {
             loadData: this.getGridData
         },
         fields: [
-            { type: "control", width: 50, editButton: false, deleteButton: false },
+            { type: "control", width: 100, editButton: false, deleteButton: false },
             { title: "Id", name: "id", type: "text", width: 300 },
             { title: "Salutation",name: "salutation", type: "text", width: 100 },
             { title: "First Name",name: "firstName", type: "text", width: 100 },
@@ -129,17 +129,16 @@ Employee.prototype.populateGrid = function (param,filterCollection) {
                     var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
                     return $select;
                 }
-
             },
             { title:"Email", name: "email", type: "text", width: 300 },
             { title: "Phone", name: "phone", type: "text", width: 120 },
-            { title: "Address Line",name: "addressLine", type: "text", width: 250 },
+            { title: "Address Line",name: "addressLine", type: "text", width: 300 },
             { title: "City", name: "city", type: "text", width: 200 },
             {
                 title: "State",
                 name: "state",
                 type: "select",
-                width: 150,
+                width: 200,
                 items: filterCollection.ddlState,
                 valueField: "value",
                 textField: "text",
@@ -147,7 +146,6 @@ Employee.prototype.populateGrid = function (param,filterCollection) {
                     var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
                     return $select;
                 }
-
             },
             { title: "ZipCode",name: "zipCode", type: "text", width: 150 },
             { title: "DOB", name: "dateOfBirth", type: "text", width: 150 },
@@ -186,7 +184,6 @@ Employee.prototype.getGridData = function (filter) {
         d.resolve(da);
     });
     return d.promise();
-
 };
 
 Employee.prototype.formatNumber = function(numberToFormat) {
