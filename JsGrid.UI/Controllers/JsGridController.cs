@@ -12,5 +12,11 @@ namespace JsDataGrids.UI.Controllers
         {
             return View();
         }
+
+
+        public IActionResult Employee()
+        {
+            return View();
+        }
     }
 }

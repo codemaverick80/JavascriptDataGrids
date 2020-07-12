@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using JsDataGrids.DataAccess.Models;
 
 namespace JsDataGrids.DataAccess
@@ -22,9 +23,23 @@ namespace JsDataGrids.DataAccess
             return DataController.GetArtists();
         }
 
+
+       // GetEmployeeGridFilterListAsync
+       public static async Task<List<EmployeeGridFilterModel>> GetEmployeeGridFilterListAsync(string where)
+       {
+           return await DataController.GetEmployeeGridFilterListAsync(where);
+       }
+
+       public static async Task<List<Employee>> GetEmployeeGridDataAsync(GridPagination pagination, Ref<int> totalRecords)
+       {
+           return await DataController.GetEmployeeGridDataAsync(pagination, totalRecords);
+       }
+
         public static bool BulkCopyToSQLServer(List<Employee> employees)
         {
             return DataController.BulkCopyToSQLServer(employees);
         }
+
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using JsDataGrids.DataAccess.Extensions;
 using JsDataGrids.DataAccess.Models;
 
@@ -126,6 +127,61 @@ namespace JsDataGrids.DataAccess
 
             return artists;
         }
+
+
+
+        internal static async  Task<List<EmployeeGridFilterModel>> GetEmployeeGridFilterListAsync(string whereCondition)
+        {
+            List<EmployeeGridFilterModel> filterList;
+
+            using (SqlConnection conn =
+                new SqlConnection(
+                    EnvironmentManager.GetConnectionString(EnvironmentManager.Database.DatabaseConnection)))
+            {
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("dbo.uspGetEmployeeGridFilters", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@WhereCondition", whereCondition);
+                    filterList = EntityMapper.CreateEmployeeGridFilterList(await command.ExecuteReaderAsync());
+                }
+            }
+
+            return filterList;
+        }
+
+
+        internal static async Task<List<Employee>> GetEmployeeGridDataAsync(GridPagination pagination,Ref<int> totalRecords)
+        {
+            List<Employee> data;
+
+            using (SqlConnection conn =
+                new SqlConnection(
+                    EnvironmentManager.GetConnectionString(EnvironmentManager.Database.DatabaseConnection)))
+            {
+                conn.Open();
+
+                await using (SqlCommand command = new SqlCommand("dbo.uspGetEmployeeGridData", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@SortColumn", pagination.SortColumn);
+                    command.Parameters.AddWithValue("@SortOrder", pagination.SortOrder);
+                    command.Parameters.AddWithValue("@PageSize", pagination.PageSize);
+                    command.Parameters.AddWithValue("@CurrentPage", pagination.CurrentPage);
+                    command.Parameters.AddWithValue("@WhereCondition", pagination.WhereCondition);
+
+                    command.Parameters.Add("@TotalRecords", SqlDbType.Int);
+                    command.Parameters["@TotalRecords"].Direction = ParameterDirection.Output;
+                    
+                    data = EntityMapper.CreateEmployeeGridData(await command.ExecuteReaderAsync());
+                    totalRecords.Value = Convert.ToInt32(command.Parameters["@TotalRecords"].Value);
+                }
+            }
+
+            return data;
+        }
+
 
 
     }

@@ -21,7 +21,7 @@ namespace JsDataGrids.UI.Faker
                 .RuleFor(e => e.LastName, f => f.Person.LastName)
                 .RuleFor(e => e.Salutation, (f, e) => f.Name.Prefix2(f.Person.Gender))
                 .RuleFor(e => e.MiddleName, f => f.Name.FirstName(f.Person.Gender).OrNull(f, .2f))
-                .RuleFor(e => e.DateOfBirth, (f, e) => f.Date.PastOffset(60, DateTime.Now.AddYears(-18)).Date)
+               // .RuleFor(e => e.DateOfBirth, (f, e) => f.Date.PastOffset(60, DateTime.Now.AddYears(-18)).Date)
                 .RuleFor(e => e.Email, (f, e) => f.Internet.Email(e.FirstName.ToLower(), e.LastName.ToLower()))
                 .RuleFor(e => e.Phone, f => f.Phone.PhoneNumberFormat())
                 .RuleFor(e => e.AddressLine, f => f.Address.StreetAddress())

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "jsGrid - Lightweight Grid jQuery Plugin";
+    ViewData["Title"] = "Employee Grid";
 }
 
 @section styles
@@ -95,6 +95,47 @@
         .jsgrid-grid-body {
             overflow: auto;
         }
+
+
+
+
+        /* Grid dropdown style*/
+        .jsgrid-cell select{
+            font-size: 0.9em;
+            font-weight: bold;
+            border: 1px solid #cfcfcf;
+        }
+
+        .jsgrid-cell select > option {
+            font-size: 0.9em;
+            font-weight: bold;
+            border: 1px solid #cfcfcf;
+        }
+
+
+        tr.highlight td.jsgrid-cell{
+            background-color: #4CACD9;
+            font-weight: bold;
+
+        }
+
+
+        /*grid current page style*/
+
+       /* .jsgrid-pager-page, .jsgrid-pager-nav-button{
+            padding: .4rem 075rem !important;
+            line-height: 1;
+        }*/
+
+
+
+        .jsgrid-pager-current-page {
+            color: #fff;
+            background-color: #f35800;
+            border-color: #f35800;
+        }
+
+
     </style>
 
 }
@@ -123,10 +164,10 @@
                             <label class="input-group-text" for="pageSize">Page Size</label>
                         </div>
                         <select class="custom-select" id="pageSize">
+                            <option value="10" selected="selected">10</option>
+                            <option value="50">50</option>
                             <option value="100">100</option>
-                            <option value="500" selected="selected">500</option>
-                            <option value="10000">10000</option>
-                            <option value="30000">30000</option>
+                            <option value="1000">1000</option>
                         </select>
                     </div>
                 </div>
@@ -163,101 +204,34 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
     <script type="text/javascript" src="~/js/employeeJsGrid.js"></script>
     <script>
-        $(function () {
-
-            
-            
+        $(function() {
 
             var size = $("#pageSize")[0].value;
             //$("#jsGrid").jsGrid("option", "pageSize", this.value);
 
             $("#pageSize").on('change',
-                function (event) {
+                function(event) {
                     $("#jsGrid").jsGrid("option", "pageSize", this.value);
                     $(".jsgrid-pager").prepend("<span class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Pages : </a></span>");
                 });
+            
 
-            $("#jsGrid").jsGrid({
-                height: "500px",
-                width: "100%",
-                heading: true,
-                filtering: true,
-                inserting: false,
-                editing: false,
-                selecting: true,
-                sorting: true,
-                paging: true,
-                pageLoading: true,
-                autoload: true,
-                pagerContainer: null,
-                pageIndex: 1,
-                pageSize: $("#pageSize")[0].value,
-                pageButtonCount: 5,
-                updateOnResize: true,
-                updateOnRowChange: true,
-                pagerFormat: " {first} {prev} {pages} {next} {last}    {pageIndex} of {pageCount} {itemCount}",
-                pagePrevText: "Prev",
-                pageNextText: "Next",
-                pageFirstText: "First",
-                pageLastText: "Last",
-                pageNavigatorNextText: "...",
-                pageNavigatorPrevText: "...",
-                invalidMessage: "Please review the error",
-                controller: {
-                    loadData: function (filter) {
-                        var d = $.Deferred();
-                        $.ajax({
-                            url: "https://localhost:44356/api/track",
-                            dataType: "json",
-                            data: filter
-                        }).done(function (response) {
-                            $("#totalRecords").text(response.totalCount);
-                            var da = { data: response.items, itemsCount: response.totalCount };
-                            d.resolve(da);
-                        });
-                        return d.promise();
-                    }
-                },
+            const emp = new Employee('#jsGrid');
+            emp.Init();
 
-                fields: [
-                    { type: "control", width: 50, editButton: false, deleteButton: false },
-                    //{
-                    //    name: "Country",
-                    //    type: "select",
-                    //    items: Albums,
-                    //    valueField: "Id",
-                    //    textField: "Name",
-                    //    filterTemplate: function () {
-                    //        var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
-                    //        $select.prepend($("<option>").prop("value", "0").text("(All)"));
-                    //        return $select;
-                    //    }
-                    //},
-                    { name: "id", type: "text", width: 400 },
-                    { name: "albumId", type: "text", width: 400 },
-                    //{
-                    //    name: "albumId", type: "select", width: 400, items: Albums, valueField: "Id", textField: "Name", filterTemplate: function () {
-                    //        var $select = jsGrid.fields.select.prototype.filterTemplate.call(this);
-                    //       // $select.prepend($("<option>").prop("value", "0").text("(All)"));
-                    //        return $select;
-                    //    }
-                    //},
-                    { name: "trackName", type: "text", width: 500 },
-                    { name: "composer", type: "text", width: 300 },
-                    { name: "performer", type: "text", width: 500 },
-                    { name: "featuring", type: "text", width: 500 },
-                    { name: "duration", type: "text", width: 300 }
-                ]
-            });
-
-
+            /*Extending selected row background color */
+            jsGrid.Grid.prototype.rowByIndex = function (arg) {
+                //this._content.find("tr")[arg] returns a DOM element instead of a jQuery object.
+                //Pass the DOM element to the find method to get a jQuery object representing it.
+                return this._content.find(this._content.find("tr")[arg]);
+            };
         });
 
 
-        $("#btnDownloadExcel").click(function () {
+
+        $("#btnDownloadExcel").click(function() {
 
             var parameters = {
-
             };
 
             window.open("https://localhost:44356/api/download/excel");

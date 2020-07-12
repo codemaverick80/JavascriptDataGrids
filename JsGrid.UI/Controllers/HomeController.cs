@@ -31,12 +31,12 @@ namespace JsDataGrids.UI.Controllers
         }
 
 
-        private void GenerateFakeDataAndSaveInSQLServer()
+        private void GenerateFakeDataAndSaveInSqlServer()
         {
             var data= GenerateFakeData.GenerateEmployeeData();
-            var distinctStates = data.DistinctByColumn(x => x.State).ToList();
+            //var distinctStates = data.DistinctByColumn(x => x.State).ToList();
             // var json = JsonSerializer.Serialize(employees);
-             var result=DataService.BulkCopyToSQLServer(data);
+             var result=DataService.BulkCopyToSqlServer(data);
         }
 
 
