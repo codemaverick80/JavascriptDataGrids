@@ -142,30 +142,46 @@
             width: 80px !important;
         }
 
+
+       /*input element focus style*/
+        textarea:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="datetime"]:focus,
+        input[type="datetime-local"]:focus,
+        input[type="date"]:focus,
+        input[type="month"]:focus,
+        input[type="time"]:focus,
+        input[type="week"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="url"]:focus,
+        input[type="search"]:focus,
+        input[type="tel"]:focus,
+        input[type="color"]:focus,
+        .uneditable-input:focus {
+            border-color: rgba(114, 140, 140, 0.7);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(114, 140, 140, 0.6);
+            outline: 0 none;
+        }
+
     </style>
 
 }
-
-@*<table class="table table-bordered" id="jsGrid" width="100%" cellspacing="0">
-    </table>*@
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
         </div>
-
-        <div>
+        @*<div>
             <button type="submit" id="btnDownloadExcel">Download Excel</button>
-
-        </div>
+        </div>*@
 
         <div class="card-body">
-
             <div class="row">
                 <div class="col-auto mr-auto">
-
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="pageSize">Page Size</label>
                         </div>
@@ -178,31 +194,16 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                             <label class="input-group-text">Total Records : <span id="totalRecords" style="font-size: 0.9em;" class="badge badge-info">0</span></label>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
-
-            <div class="table-responsive" id="jsGrid">
-                @*<table class="table table-bordered" id="jsGrid" cellspacing="0">
-                    </table>*@
-
-                @*<button type="button" class="btn btn-primary"><i class="fas fa-plus"></i> Add Policy</button>*@
-            </div>
-
-            @*<div id="jsGrid"></div>*@
+            <div class="table-responsive" id="jsGrid"></div>
         </div>
     </div>
-
-
-    @*<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Pages </a></li>*@
-
 </div>
 
 @section Scripts
@@ -215,14 +216,13 @@
             var size = $("#pageSize")[0].value;
             //$("#jsGrid").jsGrid("option", "pageSize", this.value);
 
-            $("#pageSize").on('change',
-                function(event) {
+            $("#pageSize")
+                .on('change', function(event) {
                     $("#jsGrid").jsGrid("option", "pageSize", this.value);
                     $(".jsgrid-pager").prepend("<span class='page-item disabled'><a class='page-link' href='#' tabindex='-1'>Pages : </a></span>");
                 });
-            
 
-            const emp = new Employee('#jsGrid');
+            const emp = new Employee('#jsGrid','#pageSize');
             emp.Init();
 
             /*Extending selected row background color */
@@ -233,15 +233,10 @@
             };
         });
 
-
-
         $("#btnDownloadExcel").click(function() {
-
             var parameters = {
             };
-
             window.open("https://localhost:44356/api/download/excel");
-
         });
 
 

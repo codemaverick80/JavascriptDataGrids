@@ -25,8 +25,9 @@ let empGrid = {
 
 
 /* Constructor function*/
-function Employee(gridId) {
-    this.gridId = gridId;
+function Employee(gId,pId) {
+    this.gridId = gId;
+    this.pageSizeId = pId;
 
 };
 
@@ -81,7 +82,7 @@ Employee.prototype.getGridFiltersData = function(param) {
 
 Employee.prototype.populateGrid = function (param,filterCollection) {
     $that = this;
-    $("#jsGrid").jsGrid({
+    $($that.gridId).jsGrid({
         height: "500px",
         width: "100%",
         heading: true,
@@ -95,7 +96,7 @@ Employee.prototype.populateGrid = function (param,filterCollection) {
         autoload: true,
         pagerContainer: null,
         pageIndex: 1,
-        pageSize: $("#pageSize")[0].value,
+        pageSize: $($that.pageSizeId)[0].value,
         pageButtonCount: 5,
         updateOnResize: true,
         updateOnRowChange: true,
